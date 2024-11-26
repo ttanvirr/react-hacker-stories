@@ -71,8 +71,6 @@ const Search = (props) => {
                 id='search'
                 onChange={handleChange}
             />
-
-            <p>Searching for: {props.searchedStories}</p>
         </div>
     )
 }
