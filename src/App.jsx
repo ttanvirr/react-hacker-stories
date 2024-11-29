@@ -32,7 +32,7 @@ const App = () => {
         },
     ]
 
-    const [searchTerm, setSearchTerm] = React.useState("")
+    const [searchTerm, setSearchTerm] = React.useState("React")
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value)
@@ -46,7 +46,7 @@ const App = () => {
         <div>
             <h1>My Hacker Stories</h1>
 
-            <Search onSearch={handleSearch} />
+            <Search search={searchTerm} onSearch={handleSearch} />
 
             <hr />
 
@@ -55,11 +55,11 @@ const App = () => {
     )
 }
 
-const Search = (props) => {
+const Search = ({ search, onSearch }) => {
     console.log("Search renders")
 
     const handleChange = (event) => {
-        props.onSearch(event)
+        onSearch(event)
     }
 
     return (
@@ -69,36 +69,37 @@ const Search = (props) => {
                 type='text'
                 name='search'
                 id='search'
+                value={search}
                 onChange={handleChange}
             />
         </div>
     )
 }
 
-const List = (props) => {
+const List = ({ list }) => {
     // console.log(props);
     console.log("List renders")
 
     return (
         <ul>
-            {props.list.map((item) => {
-                return <Item key={item.objectID} item={item} />
+            {list.map(({ objectID, ...item }) => {
+                return <Item key={objectID} {...item} />
             })}
         </ul>
     )
 }
 
-const Item = (props) => {
+const Item = ({ title, url, author, num_comments, points, objectID }) => {
     console.log("Item renders")
 
     return (
-        <li key={props.item.objectID}>
+        <li key={objectID}>
             <span>
-                <a href={props.item.url}>{props.item.title}</a>
+                <a href={url}>{title}</a>
             </span>
-            <span>{props.item.author}</span>
-            <span>{props.item.points}</span>
-            <span>{props.item.num_comments}</span>
+            <span>{author}</span>
+            <span>{points}</span>
+            <span>{num_comments}</span>
         </li>
     )
 }
