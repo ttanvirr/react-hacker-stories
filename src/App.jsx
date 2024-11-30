@@ -62,8 +62,9 @@ const App = () => {
                 id='search'
                 label='Search'
                 value={searchTerm}
-                onInputChange={handleSearch}
-            />
+                onInputChange={handleSearch}>
+                <strong>Search: </strong>
+            </InputWithLabel>
 
             <hr />
 
@@ -72,7 +73,13 @@ const App = () => {
     )
 }
 
-const InputWithLabel = ({ id, label, type = "text", value, onInputChange }) => {
+const InputWithLabel = ({
+    type = "text",
+    id,
+    value,
+    onInputChange,
+    children,
+}) => {
     // console.log("Input renders")
 
     const handleChange = (event) => {
@@ -80,11 +87,11 @@ const InputWithLabel = ({ id, label, type = "text", value, onInputChange }) => {
     }
 
     return (
-        <div>
-            <label htmlFor={id}>{label}:</label>
+        <>
+            <label htmlFor={id}>{children}:</label>
             &nbsp;
             <input type={type} id={id} value={value} onChange={handleChange} />
-        </div>
+        </>
     )
 }
 
