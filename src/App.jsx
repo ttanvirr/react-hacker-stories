@@ -10,6 +10,18 @@ import * as React from "react"
 
 // const title = "Hello React!"
 
+// CUSTOM HOOK
+const useStorageState = (key, initialState) => {
+    const [value, setValue] = React.useState(
+        localStorage.getItem(key) ?? initialState,
+    )
+    React.useEffect(() => {
+        localStorage.setItem(key, value)
+    }, [key, value])
+
+    return [value, setValue]
+}
+
 const App = () => {
     console.log("App renders")
 
@@ -32,7 +44,7 @@ const App = () => {
         },
     ]
 
-    const [searchTerm, setSearchTerm] = React.useState("React")
+    const [searchTerm, setSearchTerm] = useStorageState("search", "React")
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value)
